@@ -1,0 +1,1860 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <!-- Background Image -->
+    <ImageView
+        android:id="@+id/stableImg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/n8"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"/>
+
+    <!-- Background Image -->
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/n8"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"/>
+
+
+    <!-- Place this at the end of the RelativeLayout to ensure it's on top of other views -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="40dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:visibility="gone"/> <!-- Initially hidden -->
+
+
+    <LinearLayout
+        android:id="@+id/searchCity"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+
+        <EditText
+            android:id="@+id/cityName"
+            android:hint="Enter City Name"
+            android:singleLine="true"
+            android:textColorHint="#A9A9A9"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_weight="1"
+            android:backgroundTint="#363637"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/search"
+            android:layout_width="95dp"
+            android:layout_height="35dp"
+            android:background="@drawable/btn_background"
+            android:layout_toEndOf="@id/cityName"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:textSize="14dp"
+            android:text="Search" />
+
+    </LinearLayout>
+
+<!--    &lt;!&ndash; Scrollable Content &ndash;&gt;-->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_below="@id/searchCity"
+        android:scrollbars="none">
+
+            <RelativeLayout
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/city"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/cityChosen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sikkim"
+                android:layout_marginLeft="18dp"
+                android:textAllCaps="true"
+                android:textSize="27sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+        <ImageView
+            android:layout_marginTop="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/location"/>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="130dp"
+            android:layout_height="118dp"
+            android:layout_below="@id/city"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:alpha="0.7"
+            android:src="@drawable/w13n"
+            android:orientation="horizontal"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/id_degree"
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:layout_alignStart="@+id/img"
+            android:layout_alignTop="@+id/img"
+            android:layout_alignEnd="@+id/img"
+            android:layout_alignBottom="@+id/img"
+            android:layout_marginEnd="-12dp"
+            android:layout_marginBottom="-10dp"
+            android:gravity="center"
+            android:fontFamily="@font/sourcesans"
+            android:text="1°"
+            android:textColor="@color/black"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/id_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/id_degree"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/opensans"
+                    android:text="FRI, JUN 26"
+                    android:textAllCaps="true"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/id_time"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/helvatica"
+            android:text="rainy"
+            android:textAllCaps="false"
+            android:textColor="#FF363637"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/main"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/helvatica"
+            android:text="slightly snow"
+            android:textAllCaps="false"
+            android:textColor="#FF363637"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/cloud_rain"
+                    android:layout_below="@id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginBottom="6dp"
+                    android:background="@drawable/weather_content_corner"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/opensansbold"
+                        android:text="Cloud: "
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+
+
+                    <TextView
+                        android:id="@+id/id_cloud"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:fontFamily="@font/opensansbold"
+                        android:layout_marginLeft="5dp"
+                        android:text="99%"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:layout_width="23dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_height="23dp"
+                        android:src="@drawable/w04n"/>
+
+
+                    <!-- Spacer to push the next TextView to the end -->
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/opensansbold"
+                        android:text="Precip:  "
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/id_rain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:fontFamily="@font/opensansbold"
+                        android:text="2%"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+
+                    <ImageView
+                        android:layout_marginTop="3dp"
+                        android:layout_width="20dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/precip"/>
+
+                </LinearLayout>
+
+
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/l2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cloud_rain"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:id="@+id/id_weatherInfo2"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="30dp"
+                        android:background="@drawable/rounded_corners"
+                        android:orientation="vertical"
+                        android:padding="8dp"
+                        android:weightSum="2">
+
+                        <!-- First Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+
+
+
+                                <ImageView
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/humidity"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sourcesans"
+                                    android:text="Humidity"
+                                    android:layout_marginLeft="9dp"
+                                    android:textColor="@color/white"/>
+
+                                <TextView
+                                    android:id="@+id/humidity"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="86%"
+                                    android:layout_marginLeft="8dp"
+                                    android:textColor="@color/white"
+                                    android:fontFamily="@font/opensansbold"
+                                    android:textSize="22sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <!-- Repeat for each card with appropriate text -->
+                            <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_toEndOf="@+id/secondView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="30dp"
+                        android:orientation="vertical"
+                        android:padding="8dp"
+                        android:weightSum="2"
+
+                        android:background="@drawable/rounded_corners">
+
+                        <!-- First Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/air"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sourcesans"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="Pressure"
+                                    android:textColor="@color/white" />
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/pressure"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="1019"
+                                        android:textColor="@color/white"
+                                        android:fontFamily="@font/opensansbold"
+                                        android:layout_marginLeft="2dp"
+                                        android:textSize="22sp"
+                                        android:textStyle="bold" />
+
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="3dp"
+                                        android:text="hPa"
+                                        android:layout_marginTop="3dp"
+                                        android:textColor="@color/white" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <!-- Repeat for each card with appropriate text -->
+                            <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="30dp"
+                        android:layout_toEndOf="@+id/secondView"
+                        android:background="@drawable/rounded_corners"
+                        android:orientation="vertical"
+                        android:padding="8dp"
+                        android:weightSum="2">
+
+                        <!-- First Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+
+                                <ImageView
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/air"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Wind"
+                                    android:layout_marginLeft="8dp"
+                                    android:fontFamily="@font/sourcesans"
+                                    android:textColor="@color/white"/>
+
+                                <TextView
+                                    android:id="@+id/wSpeed"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="6m/s"
+                                    android:textColor="@color/white"
+                                    android:fontFamily="@font/opensansbold"
+                                    android:layout_marginLeft="1dp"
+                                    android:textSize="22sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <!-- Repeat for each card with appropriate text -->
+                            <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+
+                <TextView
+                    android:id="@+id/viss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/l2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/helvatica"
+                    android:text="Visibility throughout 11 km"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/vis_bg"
+                    android:backgroundTint="#131BB6"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:textSize="20sp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/country"
+                    android:layout_below="@id/viss"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="6dp"
+                    android:background="@drawable/weather_content_corner"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/opensansbold"
+                        android:text="Country"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <!-- Spacer to push the next TextView to the end -->
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+
+                    <TextView
+                        android:id="@+id/id_country"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:singleLine="true"
+                        android:fontFamily="@font/opensansbold"
+                        android:text="IN"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+
+                    <ImageView
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/location"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sunrise"
+                    android:layout_below="@id/country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/weather_content_corner"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/opensansbold"
+                        android:text="Sunrise"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <!-- Spacer to push the next TextView to the end -->
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/id_sunrise"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:singleLine="true"
+                        android:fontFamily="@font/opensansbold"
+                        android:text="05:41 AM"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_marginTop="6dp"
+                        android:layout_width="25dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/w2"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sunset"
+                    android:layout_below="@id/sunrise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/weather_content_corner"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/opensansbold"
+                        android:text="Sunset"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <!-- Spacer to push the next TextView to the end -->
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/id_sunset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:layout_gravity="center"
+                        android:singleLine="true"
+                        android:fontFamily="@font/opensansbold"
+                        android:text="06:36 PM"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+
+                    <ImageView
+                        android:layout_marginTop="6dp"
+                        android:layout_width="25dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/w4"/>
+
+                </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/air"
+                android:layout_below="@id/sunset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/weather_content_corner"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensansbold"
+                    android:text="Gust"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/white"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <!-- Spacer to push the next TextView to the end -->
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+
+                <TextView
+                    android:id="@+id/id_gust"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="6dp"
+                    android:layout_gravity="center"
+                    android:singleLine="true"
+                    android:fontFamily="@font/opensansbold"
+                    android:text="1.7 m/s"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+                <ImageView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/air"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sea_lev"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/air"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/weather_content_corner"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:fontFamily="@font/opensansbold"
+                    android:text="Sea level"
+                    android:textColor="@color/white"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <!-- Spacer to push the next TextView to the end -->
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/sea_levl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="8dp"
+                    android:singleLine="true"
+                    android:fontFamily="@font/opensansbold"
+                    android:text="1003.0 hPa"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/grnd_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/weather_content_corner"
+                android:layout_below="@id/sea_lev"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:fontFamily="@font/opensansbold"
+                    android:text="Ground level"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/white"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <!-- Spacer to push the next TextView to the end -->
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/id_grnd_lvl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="8dp"
+                    android:singleLine="true"
+                    android:fontFamily="@font/opensansbold"
+                    android:text="997.0 hPa"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/cloud"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/weather_content_corner"
+                    android:layout_below="@id/grnd_level"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/opensansbold"
+                        android:text="Cloud coverage"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <!-- Spacer to push the next TextView to the end -->
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/id_cloud_cov"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="8dp"
+                        android:singleLine="true"
+                        android:fontFamily="@font/opensansbold"
+                        android:text="37%"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+
+                    <ImageView
+                        android:layout_marginTop="6dp"
+                        android:layout_width="25dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/w04n"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/realfeel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/weather_content_corner"
+                    android:layout_below="@id/cloud"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/opensansbold"
+                        android:text="Real feel"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <!-- Spacer to push the next TextView to the end -->
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/id_realfeel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:singleLine="true"
+                        android:fontFamily="@font/opensansbold"
+                        android:text="15.7°C"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/temp"/>
+
+                </LinearLayout>
+
+
+
+                <!-- Added the weather info section below the weather image -->
+
+
+        <RelativeLayout
+            android:id="@+id/r1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_below="@+id/realfeel">
+
+
+            <LinearLayout
+                android:id="@+id/l1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:weightSum="2"
+            android:background="@drawable/rounded_corners">
+
+            <!-- First Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/temp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Temp"
+                        android:fontFamily="@font/sourcesans"
+                        android:layout_marginLeft="9dp"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/temp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/opensansbold"
+                        android:text="0.9°C"
+                        android:layout_marginLeft="1dp"
+                        android:textSize="22sp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Repeat for each card with appropriate text -->
+                <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+            </LinearLayout>
+        </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/secondView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_toEndOf="@+id/id_weatherInfo"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:weightSum="2"
+                android:background="@drawable/rounded_corners">
+
+                <!-- First Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+
+
+                        <ImageView
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/temp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sourcesans"
+                            android:text="Feels like"
+                            android:layout_marginLeft="9dp"
+                            android:textColor="@color/white"/>
+
+                        <TextView
+                            android:id="@+id/feel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="0.9°C"
+                            android:textColor="@color/white"
+                            android:layout_marginLeft="1dp"
+                            android:fontFamily="@font/opensansbold"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Repeat for each card with appropriate text -->
+                    <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_toEndOf="@+id/secondView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:weightSum="2"
+                android:background="@drawable/rounded_corners">
+
+                <!-- First Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_marginTop="2dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/visibility"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sourcesans"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="Visibility"
+                            android:textColor="@color/white" />
+
+
+
+                        <TextView
+                            android:id="@+id/vision"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="11 km"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/opensansbold"
+                            android:layout_marginLeft="2dp"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+
+
+                    </LinearLayout>
+
+                    <!-- Repeat for each card with appropriate text -->
+                    <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                </LinearLayout>
+            </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/l1"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:id="@+id/id_weatherInfo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/rounded_corners"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:weightSum="2">
+
+                    <!-- First Row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+
+
+
+                            <ImageView
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/humidity"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sourcesans"
+                                android:text="Moisture"
+                                android:layout_marginLeft="9dp"
+                                android:textColor="@color/white"/>
+
+                            <TextView
+                                android:id="@+id/moist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="86%"
+                                android:layout_marginLeft="8dp"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/opensansbold"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Repeat for each card with appropriate text -->
+                        <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_toEndOf="@+id/id_weatherInfo"
+                    android:background="@drawable/rounded_corners"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:weightSum="2">
+
+                    <!-- First Row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/temp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Min temp"
+                                android:fontFamily="@font/sourcesans"
+                                android:layout_marginLeft="9dp"
+                                android:textColor="@color/white"/>
+
+                            <TextView
+                                android:id="@+id/tmin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0.3°C"
+                                android:layout_gravity="center"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/opensansbold"
+                                android:layout_marginLeft="1dp"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Repeat for each card with appropriate text -->
+                        <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_toEndOf="@+id/secondView"
+                    android:background="@drawable/rounded_corners"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:weightSum="2">
+
+                    <!-- First Row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+
+                            <ImageView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/temp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Max temp"
+                                android:layout_marginLeft="9dp"
+                                android:fontFamily="@font/sourcesans"
+                                android:textColor="@color/white"/>
+
+                            <TextView
+                                android:id="@+id/tmax"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="12°C"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/opensansbold"
+                                android:layout_marginLeft="1dp"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Repeat for each card with appropriate text -->
+                        <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/r1">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="50dp"
+                        android:background="@drawable/tips_bg"
+                        android:orientation="vertical"
+                        android:weightSum="2">
+
+
+                    <LinearLayout
+                        android:id="@+id/tips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/opensansbold"
+                            android:layout_marginLeft="5dp"
+                            android:text="Lifestyle tips"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="15dp" />
+
+                        <!-- Spacer to push the next TextView to the end -->
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+
+
+                        <ImageView
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/forward_arrow"/>
+
+                    </LinearLayout>
+
+                        <View
+                            android:layout_width="310dp"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#FFFFFF"/>
+
+
+
+                        <LinearLayout
+                        android:id="@+id/t1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tips"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="vertical"
+                            android:padding="8dp"
+                            android:weightSum="2"
+                            android:background="@drawable/tips_corner">
+
+
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical">
+
+
+                                    <ImageView
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/pollen"/>
+
+                                    <TextView
+                                        android:id="@+id/pollen"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Very low pollen count"
+                                        android:layout_marginTop="5dp"
+                                        android:textAlignment="center"
+                                        android:textSize="13dp"
+                                        android:fontFamily="@font/sourcesans"
+                                        android:textColor="@color/white"/>
+
+
+                                <!-- Repeat for each card with appropriate text -->
+                                <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="7dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="vertical"
+                            android:padding="8dp"
+                            android:weightSum="2"
+                            android:background="@drawable/tips_corner">
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="7dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/umbrella"/>
+
+                                <TextView
+                                    android:id="@+id/uv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="High UV index"
+                                    android:layout_marginTop="10dp"
+                                    android:textAlignment="center"
+                                    android:textSize="13dp"
+                                    android:fontFamily="@font/sourcesans"
+                                    android:textColor="@color/white"/>
+
+
+                                <!-- Repeat for each card with appropriate text -->
+                                <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="7dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="vertical"
+                            android:padding="8dp"
+                            android:weightSum="2"
+                            android:background="@drawable/tips_corner">
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="9dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/face"/>
+
+                                <TextView
+                                    android:id="@+id/oil"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Use oil-control products"
+                                    android:layout_marginTop="10dp"
+                                    android:textAlignment="center"
+                                    android:textSize="13dp"
+                                    android:fontFamily="@font/sourcesans"
+                                    android:textColor="@color/white"/>
+
+
+                                <!-- Repeat for each card with appropriate text -->
+                                <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/t2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/t1"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/tips_corner"
+                            android:orientation="vertical"
+                            android:padding="8dp"
+                            android:weightSum="2">
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="6dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/car"/>
+
+                                <TextView
+                                    android:id="@+id/car"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Not suitable for car washing "
+                                    android:layout_marginTop="8dp"
+                                    android:textAlignment="center"
+                                    android:textSize="13dp"
+                                    android:fontFamily="@font/sourcesans"
+                                    android:textColor="@color/white"/>
+
+
+                                <!-- Repeat for each card with appropriate text -->
+                                <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="7dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/tips_corner"
+                            android:orientation="vertical"
+                            android:padding="8dp"
+                            android:weightSum="2">
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/exercise"/>
+
+                                <TextView
+                                    android:id="@+id/exercise"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Suitable for indoor workouts"
+                                    android:layout_marginTop="5dp"
+                                    android:textAlignment="center"
+                                    android:textSize="13dp"
+                                    android:fontFamily="@font/sourcesans"
+                                    android:textColor="@color/white"/>
+
+
+                                <!-- Repeat for each card with appropriate text -->
+                                <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="7dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/tips_corner"
+                            android:orientation="vertical"
+                            android:padding="8dp"
+                            android:weightSum="2">
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/traffic"/>
+
+                                <TextView
+                                    android:id="@+id/traffic"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Good traffic conditions"
+                                    android:layout_marginTop="6dp"
+                                    android:textAlignment="center"
+                                    android:textSize="13dp"
+                                    android:fontFamily="@font/sourcesans"
+                                    android:textColor="@color/white"/>
+
+
+                                <!-- Repeat for each card with appropriate text -->
+                                <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/t3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/t2"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginBottom="15dp"
+                            android:background="@drawable/tips_corner"
+                            android:orientation="vertical"
+                            android:padding="8dp"
+                            android:weightSum="2">
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_width="40dp"
+                                    android:layout_height="34dp"
+                                    android:src="@drawable/tree"/>
+
+                                <TextView
+                                    android:id="@+id/trip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Not suitable for a trip"
+                                    android:layout_marginTop="5dp"
+                                    android:textAlignment="center"
+                                    android:textSize="13dp"
+                                    android:fontFamily="@font/sourcesans"
+                                    android:textColor="@color/white"/>
+
+
+                                <!-- Repeat for each card with appropriate text -->
+                                <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="7dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginBottom="15dp"
+                            android:background="@drawable/tips_corner"
+                            android:orientation="vertical"
+                            android:padding="8dp"
+                            android:weightSum="2">
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_width="40dp"
+                                    android:layout_height="34dp"
+                                    android:src="@drawable/mosquito"/>
+
+                                <TextView
+                                    android:id="@+id/machhar"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Some mosquitoes"
+                                    android:layout_marginTop="4dp"
+                                    android:textAlignment="center"
+                                    android:textSize="13dp"
+                                    android:fontFamily="@font/sourcesans"
+                                    android:textColor="@color/white"/>
+
+
+                                <!-- Repeat for each card with appropriate text -->
+                                <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="7dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginBottom="15dp"
+                            android:background="@drawable/tips_corner"
+                            android:orientation="vertical"
+                            android:padding="8dp"
+                            android:weightSum="2">
+
+                            <!-- First Row -->
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_width="30dp"
+                                    android:layout_height="33dp"
+                                    android:src="@drawable/camp"/>
+
+                                <TextView
+                                    android:id="@+id/camp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Not suitable for camping"
+                                    android:layout_marginTop="5dp"
+                                    android:textAlignment="center"
+                                    android:textSize="13dp"
+                                    android:fontFamily="@font/sourcesans"
+                                    android:textColor="@color/white"/>
+
+
+                                <!-- Repeat for each card with appropriate text -->
+                                <!-- Feel free to duplicate and customize this block for the rest of your cards -->
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+
+                </RelativeLayout>
+
+
+
+
+    </RelativeLayout>
+
+    </ScrollView>
+
+
+
+</RelativeLayout>
