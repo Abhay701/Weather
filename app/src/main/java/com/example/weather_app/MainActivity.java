@@ -558,7 +558,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 // UV index based on temperature, rain probability, and cloudiness
-        if (weatherData.getRainProbability() < 20 && weatherData.getCloudiness() < 30 && weatherData.getTemperature() > 20) {
+        if (weatherData.getRainProbability() < 20 && weatherData.getCloudiness() < 10 && weatherData.getTemperature() > 20) {
             uv.setText("High UV index");
         } else {
             uv.setText("Low UV index");
@@ -566,7 +566,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Oil products usage
-        if ((weatherData.getHumidity() > 30 && weatherData.getHumidity() <70)  || weatherData.getRainProbability() <60) {
+        if ((weatherData.getHumidity() > 30 && weatherData.getHumidity() <80)  && weatherData.getRainProbability() <40) {
             oil.setText("Can use oil based products");
         } else {
             oil.setText("Avoid oil based products");
@@ -587,7 +587,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Traffic conditions
-        if (weatherData.getVisibility() < 5 || weatherData.getWindSpeed() > 20) {
+        if (weatherData.getVisibility() < 5 || weatherData.getWindSpeed() > 20 || weatherData.getRainProbability() >20) {
             traffic.setText("Bad traffic condition");
         } else {
             traffic.setText("Good traffic conditions");
