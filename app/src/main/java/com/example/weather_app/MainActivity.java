@@ -1,10 +1,24 @@
 package com.example.weather_app;
 
+import static androidx.constraintlayout.motion.widget.Debug.getLocation;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.PackageManagerCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.*;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,12 +29,18 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -28,10 +48,12 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import android.Manifest;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LocationListener {
 
 
     private ImageView weatherIcon;
@@ -48,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
     RelativeLayout bgImg;
+
+    LocationManager locationManager;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
+
 
 
     class getWeather extends AsyncTask<String, Void, String>{
@@ -424,8 +451,8 @@ public class MainActivity extends AppCompatActivity {
                     } else if (temperatureValue<-10&&temperatureValue>=-20) {
                         snowProbability=60;
                     } else if (temperatureValue<-20&&temperatureValue>=-40) {
-                    snowProbability=75;
-                } else if (temperatureValue<-40&&temperatureValue>=-60) {
+                        snowProbability=75;
+                    } else if (temperatureValue<-40&&temperatureValue>=-60) {
                         snowProbability=85;
                     } else if (temperatureValue<-60&temperatureValue>=-80) {
                         snowProbability=95;
@@ -462,7 +489,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-         super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         cityName = findViewById(R.id.cityName);
         search = findViewById(R.id.search);
@@ -506,11 +533,22 @@ public class MainActivity extends AppCompatActivity {
         mosquito=findViewById(R.id.machhar);
         camp=findViewById(R.id.camp);
 
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
 
 
+        // Invoke getLocation method on starting the App
+        getLocation();
 
-
-
+        // Set up swipe refresh listener
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Show loading indicator while fetching location
+                swipeRefreshLayout.setVisibility(ProgressBar.VISIBLE);
+                // Call getLocation method
+                getLocation();
+            }
+        });
 
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
@@ -524,7 +562,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         final String[] temp={""};
-
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -543,9 +580,180 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getLocation(); // Retry getting the location
+            } else {
+                Toast.makeText(this, "Location permission denied!\nGive permission to access Location!", Toast.LENGTH_SHORT).show();
+
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private void getLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+            return;
+        }
+
+        // Check if GPS is enabled
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            swipeRefreshLayout.setRefreshing(false);
+            Toast.makeText(this, "Enable GPS for your location!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Initialize FusedLocationProviderClient
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        try {
+            swipeRefreshLayout.setRefreshing(true); // Start showing the refresh indicator
+
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(location -> {
+                        if (location != null) {
+                            // Process the retrieved location
+                            swipeRefreshLayout.setRefreshing(false);
+                            handleLocation(location);
+
+                            String cityNam = getCityName(location);
+//                            Toast.makeText(MainActivity.this, "Current City: " + cityNam, Toast.LENGTH_SHORT).show();
+                            cityName.setText(cityNam);
+                            performClick(); // Automatically press the search button
+                        } else {
+                            // No cached location; request live updates
+                            requestLiveLocationUpdates(fusedLocationClient);
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        // Handle failure to fetch last known location
+                        swipeRefreshLayout.setRefreshing(false);
+                        Toast.makeText(MainActivity.this, "Failed to fetch location. Please try again!", Toast.LENGTH_SHORT).show();
+                    });
+        } catch (Exception e) {
+            swipeRefreshLayout.setRefreshing(false);
+            e.printStackTrace();
+            Toast.makeText(this, "An error occurred while fetching location!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void requestLiveLocationUpdates(FusedLocationProviderClient fusedLocationClient) {
+        // Define location request parameters
+        LocationRequest locationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(5000) // Update interval in milliseconds
+                .setFastestInterval(2000) // Fastest update interval
+                .setSmallestDisplacement(5); // Minimum displacement in meters
+
+        LocationCallback locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+
+                // Use the latest location received
+                Location location = locationResult.getLastLocation();
+                swipeRefreshLayout.setRefreshing(false);
+                handleLocation(location);
+
+                String cityNam = getCityName(location);
+                Toast.makeText(MainActivity.this, "Current City: " + cityNam, Toast.LENGTH_SHORT).show();
+                cityName.setText(cityNam);
+                performClick(); // Automatically press the search button
+
+                // Stop location updates if no longer needed
+                fusedLocationClient.removeLocationUpdates(this);
+            }
+        };
+
+        // Start requesting live location updates
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
+    }
+
+    private void handleLocation(Location location) {
+        try {
+            String cityName = getCityName(location);
+            // Perform other updates based on the location if needed
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle errors silently
+        }
+    }
+
+
+
+    private String getCityName(Location location) {
+        Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address address = addresses.get(0);
+                return address.getLocality();  // Get the city name
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Unknown City";  // Return a default value if city can't be determined
+    }
+
+
+    // Method to perform a click on search button after setting current city name in editText
+    private void performClick(){
+        // Clean up unnecessary spaces before searching
+        String city = cityName.getText().toString().trim().replaceAll(" +", " ");
+
+        if (city != null && !city.isEmpty()) {
+            url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&appid=9cb03a651888e2aa7ad88cfa9400112f";
+            getWeather task = new getWeather();
+            task.execute(url);
+        } else {
+            Toast.makeText(MainActivity.this, "Enter City", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        Toast.makeText(this, ""+location.getLatitude()+", "+ location.getLongitude(), Toast.LENGTH_SHORT).show();
+        try {
+            Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+            String address = addresses.get(0).getAddressLine(0);
+            Toast.makeText(this, address, Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        LocationListener.super.onStatusChanged(provider, status, extras);
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+        LocationListener.super.onProviderEnabled(provider);
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+        LocationListener.super.onProviderDisabled(provider);
+    }
+
+
 
 
     public void updateWeatherRecommendations(WeatherData weatherData) {
