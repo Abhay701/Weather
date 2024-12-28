@@ -79,6 +79,14 @@
 
     </LinearLayout>
 
+
+    <!-- Wrap the ScrollView in a SwipeRefreshLayout for the swipe-to-refresh feature -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/searchCity">
+
 <!--    &lt;!&ndash; Scrollable Content &ndash;&gt;-->
     <ScrollView
         android:id="@+id/scrollView"
@@ -1854,6 +1862,8 @@
     </RelativeLayout>
 
     </ScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 
